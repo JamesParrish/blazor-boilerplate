@@ -27,7 +27,7 @@ jobs:
 # TODO: dependency caching - see https://github.com/actions/starter-workflows/blob/main/deployments/azure-webapps-dotnet-core.yml
 
       - name: Build .Net code
-        run: dotnet build ${{env.SOLUTION_LOCATION}} --configuration Release
+        run: dotnet build '${{env.SOLUTION_LOCATION}}' --configuration Release
 
       - name: Publish .Net code
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
