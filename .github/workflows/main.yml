@@ -2,7 +2,7 @@ name: Build and deploy to GitHub Pages
 
 env:
   DOTNET_VERSION: '6.0'
-  SOLUTION_LOCATION: '/BlazorTest/BlazorTest.sln'
+  SOLUTION_LOCATION: 'BlazorTest/BlazorTest.sln'
   ARTIFACT_NAME: 'BlazorTest'
   PAGES_URL: 'https://jamesparrish.github.io/blazor-test/'
 
