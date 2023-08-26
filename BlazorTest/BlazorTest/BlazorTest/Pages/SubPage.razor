@@ -1,0 +1,28 @@
+﻿@page "/SubPage"
+@using BlazorTest.Data
+
+<PageTitle>Sub page</PageTitle>
+
+@inject TestService TestService
+
+<h1>Sub page</h1>
+
+<p>Proof that we can hit .cs files.</p>
+
+@if (string.IsNullOrEmpty(testString))
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>@testString</p>
+}
+
+@code {
+    private string testString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        testString = await TestService.GetTestString();
+    }
+}
