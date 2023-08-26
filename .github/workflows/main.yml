@@ -30,7 +30,7 @@ jobs:
         run: dotnet build '${{env.SOLUTION_LOCATION}}' --configuration Release
 
       - name: Publish .Net code
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish '${{env.SOLUTION_LOCATION}}' -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-pages-artifact@v2
