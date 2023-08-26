@@ -1,11 +1,14 @@
 name: Build and deploy to GitHub Pages
 
 env:
-  DOTNET_VERSION: '6'
+  DOTNET_VERSION: '6.0'
   ARTIFACT_NAME: 'BlazorTest'
   PAGES_URL: 'https://jamesparrish.github.io/blazor-test/'
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
   
 jobs:
