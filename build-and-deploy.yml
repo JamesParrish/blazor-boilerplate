@@ -1,0 +1,50 @@
+name: Build and deploy to GitHub Pages
+
+env:
+  DOTNET_VERSION: '6'
+  ARTIFACT_NAME: 'BlazorTest'
+  PAGES_URL: 'https://jamesparrish.github.io/blazor-test/'
+
+on:
+  workflow-dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up .Net Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+# TODO: dependency caching - see https://github.com/actions/starter-workflows/blob/main/deployments/azure-webapps-dotnet-core.yml
+
+      - name: Build .Net code
+        run: dotnet build --configuration Release
+
+      - name: Publish .Net code
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: ${{env.ARTIFACT_NAME}}
+
+  deploy:
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{env.PAGES_URL}}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: ${{env.ARTIFACT_NAME}}
