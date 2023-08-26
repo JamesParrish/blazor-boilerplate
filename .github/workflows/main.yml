@@ -5,6 +5,9 @@ env:
   ARTIFACT_NAME: 'BlazorTest'
   PAGES_URL: 'https://jamesparrish.github.io/blazor-test/'
 
+on:
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
