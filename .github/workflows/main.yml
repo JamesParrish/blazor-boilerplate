@@ -3,7 +3,6 @@ name: Build and deploy to GitHub Pages
 env:
   DOTNET_VERSION: '6.0'
   SOLUTION_LOCATION: 'BlazorTest/BlazorTest.sln'
-  ARTIFACT_NAME: 'BlazorTest'
   PAGES_URL: 'https://jamesparrish.github.io/blazor-test/'
 
 on:
@@ -34,14 +33,12 @@ jobs:
 
       - name: Fix permissions
         run: |
-          chmod -c -R +rX "_site/" | while read line; do
+          chmod -c -R +rX "./_site/" | while read line; do
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
       
       - name: Upload artifact for deployment job
         uses: actions/upload-pages-artifact@v2
-        with:
-          name: ${{env.ARTIFACT_NAME}}
 
   deploy:
     needs: build
@@ -56,5 +53,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-        with:
-          artifact_name: ${{env.ARTIFACT_NAME}}
